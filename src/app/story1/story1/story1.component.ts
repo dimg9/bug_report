@@ -13,12 +13,9 @@ export class Story1Component implements OnInit {
 
   ngOnInit() {
 
-    this.story1sService.getSortHeader().subscribe((data) => {
+    this.story1sService.getBugs().subscribe((data) => {
       this.Bugs = data;
-
-      this.story1sService.getBugs().subscribe((data) => {
-        this.Bugs = data;
-      });
-    }
+    });
+  }
 
 }
