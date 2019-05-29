@@ -11,6 +11,7 @@ import { BugTable } from '../model1.model';
 export class Story1Component implements OnInit {
   Bugs: BugTable[];
   sortDirection = 'asc';
+  previousSorted = '';
 
   constructor(private story1sService: Story1sService) { }
 
@@ -21,10 +22,12 @@ export class Story1Component implements OnInit {
   }
 
   sort(sortBy) {
-    if (this.sortDirection === 'asc') {
+    if (this.previousSorted === sortBy && this.sortDirection === 'asc') {
       this.sortDirection = 'desc';
+      this.previousSorted = sortBy;
     } else {
       this.sortDirection = 'asc';
+      this.previousSorted = sortBy;
     }
     this.story1sService.getBugsSorted(sortBy, this.sortDirection).subscribe((data) => {
       this.Bugs = data;
