@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 
 
 
+
 @Injectable({
   providedIn: 'root'
 })
@@ -17,9 +18,17 @@ export class Story1sService {
 
   getBugs(): Observable<BugTable[]> {
     return this.http.get<BugTable[]>(this.endpoint);
+  }
 
+  getBugsSorted(sortBy, sortDirection): Observable<BugTable[]> {
+    return this.http.get<BugTable[]>(this.endpoint + '?sort=' + sortBy + ',' + sortDirection);
   }
 
 
 
+
 }
+
+
+
+

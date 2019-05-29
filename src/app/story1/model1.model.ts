@@ -4,4 +4,5 @@ export interface BugTable {
   reporter: string;
   createdAt: string;
   status: string;
+
 }
