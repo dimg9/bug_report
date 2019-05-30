@@ -1,3 +1,4 @@
-thead {
+thead tr th:not(:first-child) {
   cursor: pointer;
 }
+
