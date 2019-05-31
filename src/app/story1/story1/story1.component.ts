@@ -12,7 +12,7 @@ export class Story1Component implements OnInit {
   Bugs: BugTable[];
   sortDirection = 'asc';
   previousSorted = '';
-
+  arrow: HTMLElement;
   constructor(private story1sService: Story1sService) { }
 
   ngOnInit() {
@@ -24,9 +24,15 @@ export class Story1Component implements OnInit {
   sort(sortBy) {
     if (this.previousSorted === sortBy && this.sortDirection === 'asc') {
       this.sortDirection = 'desc';
+      this.arrow = document.getElementById(sortBy) as HTMLElement;
+      if (this.arrow) { this.arrow.innerHTML = '<i class="material-icons">arrow_drop_up</i>'; }
       this.previousSorted = sortBy;
     } else {
       this.sortDirection = 'asc';
+      this.arrow = document.getElementById(this.previousSorted) as HTMLElement;
+      if (this.arrow){ this.arrow.innerHTML = ''; }
+      this.arrow = document.getElementById(sortBy) as HTMLElement;
+      if (this.arrow){ this.arrow.innerHTML = '<i class="material-icons">arrow_drop_down</i>'; }
       this.previousSorted = sortBy;
     }
     this.story1sService.getBugsSorted(sortBy, this.sortDirection).subscribe((data) => {
