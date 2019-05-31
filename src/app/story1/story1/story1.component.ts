@@ -30,9 +30,9 @@ export class Story1Component implements OnInit {
     } else {
       this.sortDirection = 'asc';
       this.arrow = document.getElementById(this.previousSorted) as HTMLElement;
-      if (this.arrow){ this.arrow.innerHTML = ''; }
+      if (this.arrow) { this.arrow.innerHTML = ''; }
       this.arrow = document.getElementById(sortBy) as HTMLElement;
-      if (this.arrow){ this.arrow.innerHTML = '<i class="material-icons">arrow_drop_down</i>'; }
+      if (this.arrow) { this.arrow.innerHTML = '<i class="material-icons">arrow_drop_down</i>'; }
       this.previousSorted = sortBy;
     }
     this.story1sService.getBugsSorted(sortBy, this.sortDirection).subscribe((data) => {

@@ -2,3 +2,7 @@ thead tr th:not(:first-child) {
   cursor: pointer;
 }
 
+span {
+  color: #008B8B;
+  position: fixed;
+}
