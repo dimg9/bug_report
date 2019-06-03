@@ -1,0 +1,89 @@
+<form #form="ngForm" class="form" [class.was-validated]="form.dirty && form.invalid" autocomplete="off"
+  (submit)="formSubmit(form)">
+
+
+  <div class="form-row" [class.has-error]="Title.invalid && Title.dirty && Title.untouched &&
+  description.invalid && description.dirty">
+
+    <div class="col-md-4 mb-3">
+      <label class="form-control-label">
+        <h3>Title</h3>
+      </label>
+      <input #Title="ngModel" required class="form-control" type="text" name="title"
+        placeholder="Please enter a Title for Bug" [(ngModel)]="model.title">
+      <div *ngIf="Title.invalid && Title.dirty && Title.untouched" class="invalid-feedback">
+        Field is required
+      </div>
+    </div>
+
+    <div class="col-md-4 mb-3">
+      <label class="form-control-label">
+        <h3>Description</h3>
+      </label>
+      <input #description="ngModel" required class="form-control" type="text" name="description"
+        placeholder="Please enter a Description" [(ngModel)]="model.lastName">
+      <div *ngIf="description.invalid && description.dirty" class="invalid-feedback">
+        Field is required
+      </div>
+    </div>
+  </div>
+
+
+  <div class="form-priority" [ngClass]="{'has-error': !PriorityIsValid && priority.dirty}">
+    <label class="form-control-label">
+      <h3>Priority</h3>
+    </label>
+    <br>
+    <select #priority="ngModel" name="priority" [(ngModel)]="model.priority" (change)="PriorityValidation($event)">
+      <option [ngValue]="null">Select</option>
+      <option *ngFor="let priority of ListofPriorities">
+        {{priority}}
+      </option>
+    </select>
+    <div *ngIf="!PriorityIsValid && priority.dirty" style="color:red">
+      Field is required priority
+    </div>
+  </div>
+
+
+  <div class="form-reporter" [ngClass]="{'has-error': !ReporterIsValid && reporter.dirty}">
+    <label class="form-control-label">Reporter</label>
+    <br>
+    <select #reporter="ngModel" name="reporter" [(ngModel)]="model.reporter" (change)="ReporterValidation($event)">
+      <option [ngValue]="null">Select</option>
+      <option *ngFor="let reporter of ListofReporters">
+        {{reporter}}
+      </option>
+    </select>
+    <div *ngIf="!ReporterIsValid && reporter.dirty" style="color:red">
+      Field is required reporter
+    </div>
+  </div>
+
+  <div class="form-group" [ngClass]="{'has-error': !StatusIsValid && status.dirty}">
+    <label class="form-control-label">Status</label>
+    <br>
+    <select #status="ngModel" name="status" [(ngModel)]="model.status" (change)="StatusValidation($event)">
+      <option [ngValue]="null">Select</option>
+      <option *ngFor="let status of ListofStatus">
+        {{status}}
+      </option>
+    </select>
+    <div *ngIf="!StatusIsValid && status.dirty" style="color:red">
+      Field is required status
+    </div>
+  </div>
+
+
+  <div>
+    <button class="btn btn-primary" [disabled]="!form.valid">OK</button>
+  </div>
+
+
+
+
+
+  {{model.title}}
+  {{model.lastName}}
+
+</form>

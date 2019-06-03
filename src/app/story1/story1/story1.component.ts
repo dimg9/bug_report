@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Story1sService } from '../story1s.service';
 import { BugTable } from '../model1.model';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -13,7 +14,7 @@ export class Story1Component implements OnInit {
   sortDirection = 'asc';
   previousSorted = '';
   arrow: HTMLElement;
-  constructor(private story1sService: Story1sService) { }
+  constructor(private story1sService: Story1sService, private router: Router) { }
 
   ngOnInit() {
     this.story1sService.getBugs().subscribe((data) => {
@@ -38,5 +39,9 @@ export class Story1Component implements OnInit {
     this.story1sService.getBugsSorted(sortBy, this.sortDirection).subscribe((data) => {
       this.Bugs = data;
     });
+  }
+
+  goToRoute(route: string) {
+    this.router.navigate([route]);
   }
 }

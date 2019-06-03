@@ -6,3 +6,8 @@ span {
   color: #008B8B;
   position: fixed;
 }
+
+button {
+  position: relative;
+  
+}
