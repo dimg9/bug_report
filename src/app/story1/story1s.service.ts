@@ -28,6 +28,13 @@ export class Story1sService {
     return this.http.post<BugTable[]>(this.endpoint, bug);
   }
 
+  getBugbyId(bugid: string): Observable<BugTable> {
+    return this.http.get<BugTable>(this.endpoint + '/' + bugid);
+  }
+
+  updateBug(id: string, editedbug: BugTable): Observable<BugTable[]> {
+    return this.http.put<BugTable[]>(`${this.endpoint}/${id}`, editedbug);
+  }
 
 }
 

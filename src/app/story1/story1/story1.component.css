@@ -4,10 +4,9 @@ thead tr th:not(:first-child) {
 
 span {
   color: #008B8B;
-  position: fixed;
+  position: absolute;
 }
 
-button {
+#crtbg {
   position: relative;
-  
 }

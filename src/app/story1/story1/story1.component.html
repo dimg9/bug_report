@@ -1,5 +1,5 @@
 <div>
-  <button (click)="goToRoute('forms')">Create New Bug</button>
+  <button id="crtbgbttn" (click)="goToRoute('forms')">Create New Bug</button>
 </div>
 
 <br><br>
@@ -27,7 +27,7 @@
         <td>{{bug.reporter}}</td>
         <td>{{bug.createdAt | date:"full"}}</td>
         <td>{{bug.status}}</td>
-
+        <button (click)="goToEdit(bug)" class="btn btn-link text-white">Edit</button>
 
     </tbody>
   </table>

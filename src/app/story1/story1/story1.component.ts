@@ -44,4 +44,8 @@ export class Story1Component implements OnInit {
   goToRoute(route: string) {
     this.router.navigate([route]);
   }
+
+  goToEdit(bug: BugTable) {
+    this.router.navigate(['forms', {bugid: bug.id}]);
+  }
 }

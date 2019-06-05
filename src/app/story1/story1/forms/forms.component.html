@@ -34,7 +34,14 @@
 
           <br><br>
 
-          <button class="btn btn-primary" [disabled]="!form.valid">Create New Bug</button>
+          <button class="btn btn-primary" [disabled]="!form.valid">
+            <span *ngIf="!!edit; else create">
+              Update Bug
+            </span>
+            <ng-template #create>
+              Create New Bug
+            </ng-template>
+          </button>
 
         </div>
 
