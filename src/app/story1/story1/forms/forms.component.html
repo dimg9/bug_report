@@ -1,4 +1,4 @@
-<button (click)="goToRoute('home')">Return to Home Page</button>
+<button type="button" class="btn btn-danger" (click)="goToRoute('home')">Return to Home Page</button>
 <br><br><br>
 
 <form #form="ngForm" class="form" [class.was-validated]="form.dirty && form.invalid" autocomplete="off"
@@ -19,18 +19,18 @@
             placeholder="Please enter a Title for Bug" [(ngModel)]="model.title" required>
           <div *ngIf="Title.invalid && Title.dirty && Title.untouched" class="invalid-feedback">
             Field is required
-         </div>
+          </div>
 
           <br>
 
-         <label class="form-control-label">
-           <h3>Description</h3>
-         </label>
+          <label class="form-control-label">
+            <h3>Description</h3>
+          </label>
           <input #description="ngModel" required class="form-control" type="text" name="description"
-           placeholder="Please enter a Description" [(ngModel)]="model.description" required>
-         <div *ngIf="description.invalid && description.dirty" class="invalid-feedback">
-           Field is required
-         </div>
+            placeholder="Please enter a Description" [(ngModel)]="model.description" required>
+          <div *ngIf="description.invalid && description.dirty" class="invalid-feedback">
+            Field is required
+          </div>
 
           <br><br>
 
@@ -56,7 +56,8 @@
                     <h3>Priority</h3>
                   </label>
                   <br>
-                  <select #priority="ngModel" name="priority" [(ngModel)]="model.priority" (change)="PriorityValidation($event)" required>
+                  <select #priority="ngModel" name="priority" [(ngModel)]="model.priority"
+                    (change)="PriorityValidation($event)" required>
                     <option [ngValue]="null">Select</option>
                     <option *ngFor="let priority of ListofPriorities">
                       {{priority}}
@@ -74,7 +75,8 @@
                     <h3>Reporter</h3>
                   </label>
                   <br>
-                  <select #reporter="ngModel" name="reporter" [(ngModel)]="model.reporter" (change)="ReporterValidation($event)" required>
+                  <select #reporter="ngModel" name="reporter" [(ngModel)]="model.reporter"
+                    (change)="ReporterValidation($event)" required>
                     <option [ngValue]="null">Select</option>
                     <option *ngFor="let reporter of ListofReporters">
                       {{reporter}}
@@ -92,7 +94,8 @@
                     <h3>Status</h3>
                   </label>
                   <br>
-                  <select #status="ngModel" name="status" [(ngModel)]="model.status" (change)="StatusValidation($event)" required>
+                  <select #status="ngModel" name="status" [(ngModel)]="model.status" (change)="StatusValidation($event)"
+                    required>
                     <option [ngValue]="null">Select</option>
                     <option *ngFor="let status of ListofStatus">
                       {{status}}
