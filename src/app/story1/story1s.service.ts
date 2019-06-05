@@ -24,7 +24,9 @@ export class Story1sService {
     return this.http.get<BugTable[]>(this.endpoint + '?sort=' + sortBy + ',' + sortDirection);
   }
 
-
+  createBug(bug: BugTable): Observable<BugTable[]> {
+    return this.http.post<BugTable[]>(this.endpoint, bug);
+  }
 
 
 }

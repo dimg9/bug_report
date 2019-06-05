@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { Story1sService } from '../../story1s.service';
+import { Router } from '@angular/router';
+import { BugTable, Comm } from '../../model1.model';
 
 @Component({
   selector: 'app-forms',
@@ -8,32 +11,39 @@ import { NgForm } from '@angular/forms';
 })
 export class FormsComponent implements OnInit {
 
-  model = {
-    title: '',
-    lastName: '',
-    priority: null,
-    reporter: null,
-    status: null
-  };
+model: BugTable = {
+  id: '',
+  title: '',
+  description: '',
+  priority: null,
+  reporter: null,
+  status: null,
+  createdAt: '',
+  updatedAt: '',
+  comments: [{id: '',
+              reporter: '',
+              description: ''}]
+};
+
   PriorityIsValid: boolean;
   ReporterIsValid: boolean;
   StatusIsValid: boolean;
 
-  ListofPriorities = ['Minor', 'Major', 'Critical'];
+  ListofPriorities = [1, 2, 3];
   ListofReporters = ['QA', 'PO', 'DEV'];
   ListofStatus = ['Ready for test', 'Done', 'Rejected'];
 
-  constructor() { }
+  constructor(private story1sService: Story1sService, private router: Router) { }
 
   ngOnInit() {
   }
 
   PriorityValidation(event) {
-    this.ReporterIsValid = !(this.model.priority === null);
+    this.PriorityIsValid = !(this.model.priority === null);
   }
 
   ReporterValidation(event) {
-    this.PriorityIsValid = !(this.model.reporter === null);
+    this.ReporterIsValid = !(this.model.reporter === null);
   }
 
   StatusValidation(event) {
@@ -43,9 +53,13 @@ export class FormsComponent implements OnInit {
 
 
   formSubmit(form: NgForm) {
-    if (!form.valid) return;
-    console.log(form);
+    if (!form.valid) { return; }
+    this.story1sService.createBug(this.model).subscribe();
+    this.goToRoute('home');
+  }
 
+  goToRoute(route: string) {
+    this.router.navigate([route]);
   }
 }
 
