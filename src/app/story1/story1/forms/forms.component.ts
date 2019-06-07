@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, NgZone } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Story1sService } from '../../story1s.service';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -34,7 +34,8 @@ model: BugTable = {
   ListofStatus = ['Ready for test', 'Done', 'Rejected'];
   edit: string;
 
-  constructor(private story1sService: Story1sService, private router: Router, private activatedRoute: ActivatedRoute) { }
+  constructor(private story1sService: Story1sService, private router: Router, private activatedRoute: ActivatedRoute,
+              private ngZone: NgZone) { }
 
   ngOnInit() {
     this.edit = this.activatedRoute.snapshot.params['bugid'];
@@ -63,11 +64,14 @@ model: BugTable = {
     if (!form.valid) { return; }
     if (!!this.edit) {
       this.model.updatedAt = Date();
-      this.story1sService.updateBug(this.edit, this.model).subscribe();
-      this.goToRoute('home');
+      this.story1sService.updateBug(this.edit, this.model).subscribe(
+        (response) => { this.ngZone.run(() => this.goToRoute('home')); }
+      );
     } else {
-      this.story1sService.createBug(this.model).subscribe();
-      this.goToRoute('home');
+      /* this.story1sService.createBug(this.model).subscribe(
+        (response) => { this.ngZone.run(() => this.goToRoute('home')); }
+      ); */
+      console.log(this.model);
     }
   }
 
