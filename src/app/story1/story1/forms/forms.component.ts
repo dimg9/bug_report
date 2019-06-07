@@ -37,6 +37,7 @@ model: BugTable = {
   constructor(private story1sService: Story1sService, private router: Router, private activatedRoute: ActivatedRoute,
               private ngZone: NgZone) { }
 
+
   ngOnInit() {
     this.edit = this.activatedRoute.snapshot.params['bugid'];
     if (!!this.edit) {
@@ -68,10 +69,9 @@ model: BugTable = {
         (response) => { this.ngZone.run(() => this.goToRoute('home')); }
       );
     } else {
-      /* this.story1sService.createBug(this.model).subscribe(
+      this.story1sService.createBug(this.model).subscribe(
         (response) => { this.ngZone.run(() => this.goToRoute('home')); }
-      ); */
-      console.log(this.model);
+      );
     }
   }
 

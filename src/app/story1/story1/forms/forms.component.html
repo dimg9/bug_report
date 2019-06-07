@@ -1,5 +1,12 @@
-<button type="button" class="btn btn-danger" (click)="goToRoute('home')">Return to Home Page</button>
-<br><br><br>
+<div class="container">
+  <div class="row">
+    <div class="col-lg-6">
+      <button type="button" class="btn btn-danger" (click)="goToRoute('home')">Return to Home Page</button>
+    </div>
+  </div>
+</div>
+
+<br><br>
 
 <form #form="ngForm" class="form" [class.was-validated]="form.dirty && form.invalid" autocomplete="off"
   (submit)="formSubmit(form)">
@@ -113,5 +120,11 @@
         </div>
       </div>
     </div>
+  </div>
+  <br>
+  <hr>
+  <br>
+  <div *ngIf="edit">
+    <app-comments [bgid]="edit"></app-comments>
   </div>
 </form>

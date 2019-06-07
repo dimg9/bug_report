@@ -1,0 +1,43 @@
+<div class="container">
+  <div class="row">
+
+    <div class="col-lg-6">
+      <h2>Comments</h2>
+    </div>
+
+  </div>
+</div>
+
+<br>
+
+<div class="container">
+  <div class="row">
+
+    <div class="col-lg-12">
+      <form #form="ngForm" class="form" autocomplete="off"
+      (submit)="commentSubmit(form)">
+
+    <label class="form-control-label">
+      <h3>Name</h3>
+    </label>
+    <input #Reporter="ngModel" class="form-control" type="text" name="reporter"
+      placeholder="Please enter your name" [(ngModel)]="comments.reporter">
+    <br>
+    <label class="form-control-label">
+      <h3>Comment</h3>
+    </label>
+    <textarea #Description="ngModel" class="form-control" type="text" name="description"
+      placeholder="Please enter your comment" [(ngModel)]="comments.description" rows="4"></textarea>
+    <br>
+    <button class="btn btn-secondary">Add Comment</button>
+    </form>
+    </div>
+
+  </div>
+</div>
+<br>
+<br>
+<br>
+
+
+
