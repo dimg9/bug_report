@@ -124,7 +124,12 @@
   <br>
   <hr>
   <br>
+  <ul *ngFor="let item of com">
+    <li *ngIf="item.reporter">
+      {{item.reporter}}: {{item.description}}
+    </li>
+  </ul>
   <div *ngIf="edit">
-    <app-comments [bgid]="edit"></app-comments>
+    <app-comments (output)="handle($event)"></app-comments>
   </div>
 </form>

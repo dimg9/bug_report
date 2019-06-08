@@ -1,7 +1,6 @@
-import { Component, OnInit, Input, NgZone } from '@angular/core';
+import { Component, OnInit, Input, NgZone, Output, EventEmitter } from '@angular/core';
 import { BugTable, Comm } from '../../model1.model';
 import { NgForm } from '@angular/forms';
-import { Story1sService } from '../../story1s.service';
 
 @Component({
   selector: 'app-comments',
@@ -12,7 +11,7 @@ export class CommentsComponent implements OnInit {
 
 
 
-  model1: BugTable;
+
 
   comments: Comm = {
     id: '',
@@ -20,22 +19,18 @@ export class CommentsComponent implements OnInit {
     description: ''
   };
 
-  cmm: Comm[];
 
-  constructor(private story1sService: Story1sService, private ngZone: NgZone) { }
 
-  @Input() bgid;
+  constructor() { }
+
+
+  @Output() output: EventEmitter<Comm> = new EventEmitter();
   ngOnInit() {
-    this.story1sService.getBugbyId(this.bgid).subscribe((data) => {
-      this.model1 = data;
-      this.cmm = this.model1.comments;
-    });
   }
 
   commentSubmit(form: NgForm) {
     if (!form.valid) { return; }
-    this.model1.comments.push(this.comments);
-    this.story1sService.updateBug(this.bgid, this.model1).subscribe();
+    this.output.emit(this.comments);
     this.resetform();
   }
 

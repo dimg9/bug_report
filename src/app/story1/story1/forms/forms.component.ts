@@ -2,7 +2,7 @@ import { Component, OnInit, NgZone } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Story1sService } from '../../story1s.service';
 import { Router, ActivatedRoute } from '@angular/router';
-import { BugTable } from '../../model1.model';
+import { BugTable, Comm } from '../../model1.model';
 
 @Component({
   selector: 'app-forms',
@@ -25,6 +25,8 @@ model: BugTable = {
               description: ''}]
 };
 
+  com: Comm[];
+
   PriorityIsValid: boolean;
   ReporterIsValid: boolean;
   StatusIsValid: boolean;
@@ -43,6 +45,7 @@ model: BugTable = {
     if (!!this.edit) {
       this.story1sService.getBugbyId(this.edit).subscribe((data) => {
         this.model = data;
+        this.com = this.model.comments;
       });
     }
   }
@@ -73,6 +76,10 @@ model: BugTable = {
         (response) => { this.ngZone.run(() => this.goToRoute('home')); }
       );
     }
+  }
+
+  handle(event) {
+  this.model.comments.push(event);
   }
 
   goToRoute(route: string) {
