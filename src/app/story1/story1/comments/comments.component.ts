@@ -20,12 +20,15 @@ export class CommentsComponent implements OnInit {
     description: ''
   };
 
+  cmm: Comm[];
+
   constructor(private story1sService: Story1sService, private ngZone: NgZone) { }
 
   @Input() bgid;
   ngOnInit() {
     this.story1sService.getBugbyId(this.bgid).subscribe((data) => {
       this.model1 = data;
+      this.cmm = this.model1.comments;
     });
   }
 
