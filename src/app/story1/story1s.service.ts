@@ -16,8 +16,8 @@ export class Story1sService {
   constructor(private http: HttpClient) { }
 
 
-  getBugs(): Observable<BugTable[]> {
-    return this.http.get<BugTable[]>(this.endpoint + '');
+  getBugs(page): Observable<BugTable[]> {
+    return this.http.get<BugTable[]>(this.endpoint + '?page=' + page + '&size=10');
   }
 
   getBugsSorted(sortBy, sortDirection): Observable<BugTable[]> {

@@ -14,10 +14,12 @@ export class Story1Component implements OnInit {
   sortDirection = 'asc';
   previousSorted = '';
   arrow: HTMLElement;
+  page = 0;
   constructor(private story1sService: Story1sService, private router: Router) { }
 
   ngOnInit() {
-    this.story1sService.getBugs().subscribe((data) => {
+
+    this.story1sService.getBugs(this.page).subscribe((data) => {
       this.Bugs = data;
     });
   }
@@ -46,6 +48,22 @@ export class Story1Component implements OnInit {
   }
 
   goToEdit(bug: BugTable) {
-    this.router.navigate(['forms', {bugid: bug.id}]);
+    this.router.navigate(['forms', { bugid: bug.id }]);
   }
+
+  goToPages(keyarrow: string) {
+    if (keyarrow === 'left') {
+      this.page = this.page - 1;
+      this.story1sService.getBugs(this.page).subscribe((data) => {
+        this.Bugs = data;
+      });
+    } else if (keyarrow === 'right') {
+      this.page = this.page + 1;
+      this.story1sService.getBugs(this.page).subscribe((data) => {
+        this.Bugs = data;
+      });
+    }
+
+  }
+
 }
