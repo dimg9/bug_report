@@ -66,8 +66,8 @@
                   <select #priority="ngModel" name="priority" [(ngModel)]="model.priority"
                     (change)="PriorityValidation($event)" required>
                     <option [ngValue]="null">Select</option>
-                    <option *ngFor="let priority of ListofPriorities">
-                      {{priority}}
+                    <option *ngFor="let priority of ListofPriorities" [value]="priority">
+                      {{priority | prioritypipe}}
                     </option>
                   </select>
                   <div *ngIf="!PriorityIsValid && priority.dirty" style="color:red">

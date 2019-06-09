@@ -5,9 +5,10 @@ import { PageTitleComponent } from './story1/page-title/page-title.component';
 import { FormsComponent } from './story1/forms/forms.component';
 import { FormsModule } from '@angular/forms';
 import { CommentsComponent } from './story1/comments/comments.component';
+import { PriorityPipe } from './priority.pipe';
 
 @NgModule({
-  declarations: [Story1Component, PageTitleComponent, FormsComponent, CommentsComponent],
+  declarations: [Story1Component, PageTitleComponent, FormsComponent, CommentsComponent, PriorityPipe],
   imports: [
     CommonModule,
     FormsModule

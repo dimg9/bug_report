@@ -17,7 +17,7 @@ export class Story1sService {
 
 
   getBugs(): Observable<BugTable[]> {
-    return this.http.get<BugTable[]>(this.endpoint);
+    return this.http.get<BugTable[]>(this.endpoint + '');
   }
 
   getBugsSorted(sortBy, sortDirection): Observable<BugTable[]> {
