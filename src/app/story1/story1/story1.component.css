@@ -10,3 +10,8 @@ span {
 #crtbg {
   position: relative;
 }
+
+.pagebuttons {
+  border: none;
+  background: none;
+}

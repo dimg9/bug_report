@@ -16,12 +16,12 @@ export class Story1sService {
   constructor(private http: HttpClient) { }
 
 
-  getBugs(page): Observable<BugTable[]> {
-    return this.http.get<BugTable[]>(this.endpoint + '?page=' + page + '&size=10');
-  }
-
-  getBugsSorted(sortBy, sortDirection): Observable<BugTable[]> {
-    return this.http.get<BugTable[]>(this.endpoint + '?sort=' + sortBy + ',' + sortDirection);
+  getBugs(sortBy, sortDirection, page): Observable<BugTable[]> {
+    if (sortBy === '') {
+      return this.http.get<BugTable[]>(this.endpoint + '?page=' + page + '&size=10');
+    } else {
+      return this.http.get<BugTable[]>(this.endpoint + '?sort=' + sortBy + ',' + sortDirection + '&page=' + page + '&size=10');
+    }
   }
 
   createBug(bug: BugTable): Observable<BugTable[]> {

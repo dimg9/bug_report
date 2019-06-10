@@ -19,7 +19,7 @@ export class Story1Component implements OnInit {
 
   ngOnInit() {
 
-    this.story1sService.getBugs(this.page).subscribe((data) => {
+    this.story1sService.getBugs(this.previousSorted, this.sortDirection, this.page).subscribe((data) => {
       this.Bugs = data;
     });
   }
@@ -38,7 +38,7 @@ export class Story1Component implements OnInit {
       if (this.arrow) { this.arrow.innerHTML = '<i class="material-icons">arrow_drop_down</i>'; }
       this.previousSorted = sortBy;
     }
-    this.story1sService.getBugsSorted(sortBy, this.sortDirection).subscribe((data) => {
+    this.story1sService.getBugs(sortBy, this.sortDirection, this.page).subscribe((data) => {
       this.Bugs = data;
     });
   }
@@ -54,16 +54,22 @@ export class Story1Component implements OnInit {
   goToPages(keyarrow: string) {
     if (keyarrow === 'left') {
       this.page = this.page - 1;
-      this.story1sService.getBugs(this.page).subscribe((data) => {
+      this.story1sService.getBugs(this.previousSorted, this.sortDirection, this.page).subscribe((data) => {
         this.Bugs = data;
       });
     } else if (keyarrow === 'right') {
       this.page = this.page + 1;
-      this.story1sService.getBugs(this.page).subscribe((data) => {
+      this.story1sService.getBugs(this.previousSorted, this.sortDirection, this.page).subscribe((data) => {
         this.Bugs = data;
       });
     }
 
   }
 
+  goToFirstPage() {
+    this.page = 0;
+    this.story1sService.getBugs(this.previousSorted, this.sortDirection, this.page).subscribe((data => {
+      this.Bugs = data;
+    }));
+  }
 }
