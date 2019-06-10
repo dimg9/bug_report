@@ -16,11 +16,32 @@ export class Story1sService {
   constructor(private http: HttpClient) { }
 
 
-  getBugs(sortBy, sortDirection, page): Observable<BugTable[]> {
-    if (sortBy === '') {
-      return this.http.get<BugTable[]>(this.endpoint + '?page=' + page + '&size=10');
+  getBugs(sortBy, sortDirection, page, title, priority, reporter, status): Observable<BugTable[]> {
+    if (title) {
+      title = '&title=' + title;
     } else {
-      return this.http.get<BugTable[]>(this.endpoint + '?sort=' + sortBy + ',' + sortDirection + '&page=' + page + '&size=10');
+      title = '';
+    }
+    if (priority) {
+      priority = '&priority=' + priority;
+    } else {
+      priority = '';
+    }
+    if (reporter) {
+      reporter = '&reporter=' + reporter;
+    } else {
+      reporter = '';
+    }
+    if (status) {
+      status = '&status=' + status;
+    } else {
+      status = '';
+    }
+    if (sortBy === '') {
+      return this.http.get<BugTable[]>(this.endpoint + '?page=' + page + '&size=10' + title + priority + reporter + status);
+    } else {
+      return this.http.get<BugTable[]>(this.endpoint + '?sort=' + sortBy + ',' + sortDirection + '&page=' + page + '&size=10' + title +
+       priority + reporter + status);
     }
   }
 

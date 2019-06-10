@@ -1,7 +1,59 @@
 <div class="container">
   <div class="row">
-    <div class="col-lg-6">
+    <div class="col-lg-4">
       <button type="button" class="btn btn-success" id="crtbgbttn" (click)="goToRoute('forms')">Create New Bug</button>
+    </div>
+    <div class="col-lg-8">
+      <h5>Advanced Searching</h5>
+      <form #form="ngForm" class="form" autocomplete="off" (submit)="AdvancedSearch(form)">
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-6">
+              <input #title="ngModel" class="form-control" type="text" name="titleSeach"
+                placeholder="Search by Title" [(ngModel)]="titlesearch">
+            </div>
+            <div class="col-lg-6">
+              <select #priority="ngModel" name="prioritySearch" [(ngModel)]="prioritysearch" class="custom-select" id="inputGroupSelect01">
+                <option [ngValue]="null">Search By Priority</option>
+                <option *ngFor="let priority of ListofPriorities" [value]="priority">
+                  {{priority | prioritypipe}}
+                </option>
+              </select>
+            </div>
+          </div>
+          <br>
+          <div class="row">
+            <div class="col-lg-6">
+              <select #reporter="ngModel" name="reporterSeach" [(ngModel)]="reportersearch" class="custom-select" id="inputGroupSelect01">
+                <option [ngValue]="null">Search By Reporter</option>
+                <option *ngFor="let reporter of ListofReporters">
+                  {{reporter}}
+                </option>
+              </select>
+            </div>
+            <div class="col-lg-6">
+              <select #status="ngModel" name="statusSeach" [(ngModel)]="statussearch" class="custom-select" id="inputGroupSelect01">
+                <option [ngValue]="null">Search By Status</option>
+                <option *ngFor="let status of ListofStatus">
+                  {{status}}
+                </option>
+              </select>
+            </div>
+          </div>
+          <br>
+          <div class="row">
+            <div class="col-lg-1.5">
+              <button type="submit" class="btn btn-info">Search</button>
+            </div>
+            <div class="col-lg-2">
+              <button type="button" class="btn btn-warning" (click)="resetSearch()">Reset</button>
+            </div>
+            <div class="col-lg-3">
+              <button type="button" class="btn btn-danger" (click)="refresh()">Cancel All Filters</button>
+            </div>
+          </div>
+        </div>
+      </form>
     </div>
   </div>
 </div>
