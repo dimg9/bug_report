@@ -15,3 +15,8 @@ span {
   border: none;
   background: none;
 }
+
+svg {
+  margin-top: 1em;
+  cursor: pointer;
+}
