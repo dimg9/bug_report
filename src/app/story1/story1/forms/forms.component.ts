@@ -11,17 +11,17 @@ import { BugTable, Comm } from '../../model1.model';
 })
 export class FormsComponent implements OnInit {
 
-model: BugTable = {
-  id: '',
-  title: '',
-  description: '',
-  priority: null,
-  reporter: null,
-  status: null,
-  createdAt: '',
-  updatedAt: '',
-  comments: []
-};
+  model: BugTable = {
+    id: '',
+    title: '',
+    description: '',
+    priority: 0,
+    reporter: '',
+    status: '',
+    createdAt: '',
+    updatedAt: '',
+    comments: []
+  };
 
   com: Comm[];
 
@@ -35,7 +35,7 @@ model: BugTable = {
   edit: string;
 
   constructor(private story1sService: Story1sService, private router: Router, private activatedRoute: ActivatedRoute,
-              private ngZone: NgZone) { }
+    private ngZone: NgZone) { }
 
 
   ngOnInit() {
@@ -49,15 +49,15 @@ model: BugTable = {
   }
 
   PriorityValidation(event) {
-    this.PriorityIsValid = !(this.model.priority === null);
+    this.PriorityIsValid = !(this.model.priority === 0);
   }
 
   ReporterValidation(event) {
-    this.ReporterIsValid = !(this.model.reporter === null);
+    this.ReporterIsValid = !(this.model.reporter === '');
   }
 
   StatusValidation(event) {
-    this.StatusIsValid = !(this.model.status === null);
+    this.StatusIsValid = !(this.model.status === '');
   }
 
 
@@ -77,7 +77,7 @@ model: BugTable = {
   }
 
   handle(event) {
-  this.model.comments.push(event);
+    this.model.comments.push(event);
   }
 
   goToRoute(route: string) {

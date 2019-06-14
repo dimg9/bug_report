@@ -64,9 +64,8 @@
                   </label>
                   <br>
                   <select #priority="ngModel" name="priority" [(ngModel)]="model.priority"
-                    (change)="PriorityValidation($event)" required class="custom-select"
-                    id="inputGroupSelect01">
-                    <option [ngValue]="null">Select</option>
+                    (change)="PriorityValidation($event)" required class="custom-select" id="inputGroupSelect01">
+                    <option value=0 disabled>Select</option>
                     <option *ngFor="let priority of ListofPriorities" [value]="priority">
                       {{priority | prioritypipe}}
                     </option>
@@ -84,9 +83,8 @@
                   </label>
                   <br>
                   <select #reporter="ngModel" name="reporter" [(ngModel)]="model.reporter"
-                    (change)="ReporterValidation($event)" required class="custom-select"
-                    id="inputGroupSelect01">
-                    <option [ngValue]="null">Select</option>
+                    (change)="ReporterValidation($event)" required class="custom-select" id="inputGroupSelect01">
+                    <option value='' disabled>Select</option>
                     <option *ngFor="let reporter of ListofReporters">
                       {{reporter}}
                     </option>
@@ -105,7 +103,7 @@
                   <br>
                   <select #status="ngModel" name="status" [(ngModel)]="model.status" (change)="StatusValidation($event)"
                     required class="custom-select" id="inputGroupSelect01">
-                    <option [ngValue]="null">Select</option>
+                    <option value='' disabled>Select</option>
                     <option *ngFor="let status of ListofStatus">
                       {{status}}
                     </option>
