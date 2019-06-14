@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, NgZone } from '@angular/core';
 import { Story1sService } from '../story1s.service';
 import { BugTable } from '../model1.model';
 import { Router } from '@angular/router';
@@ -11,7 +11,9 @@ import { NgForm } from '@angular/forms';
   styleUrls: ['./story1.component.css']
 })
 export class Story1Component implements OnInit {
+  public isCollapsed = true;
   Bugs: BugTable[];
+  test: BugTable[];
   sortDirection = 'asc';
   previousSorted = '';
   arrow: HTMLElement;
@@ -24,7 +26,7 @@ export class Story1Component implements OnInit {
   ListofReporters = ['QA', 'PO', 'DEV'];
   ListofStatus = ['Ready for test', 'Done', 'Rejected'];
 
-  constructor(private story1sService: Story1sService, private router: Router) { }
+  constructor(private story1sService: Story1sService, private router: Router, private ngZone: NgZone) { }
 
   ngOnInit() {
 
@@ -82,9 +84,9 @@ export class Story1Component implements OnInit {
   goToFirstPage() {
     this.page = 0;
     this.story1sService.getBugs(this.previousSorted, this.sortDirection, this.page, this.titlesearch, this.prioritysearch,
-      this.reportersearch, this.statussearch).subscribe((data => {
+      this.reportersearch, this.statussearch).subscribe((data) => {
       this.Bugs = data;
-    }));
+    });
   }
 
   resetSearch() {
@@ -98,21 +100,44 @@ export class Story1Component implements OnInit {
     this.previousSorted = '';
     this.page = 0;
     this.story1sService.getBugs(this.previousSorted, this.sortDirection, this.page, this.titlesearch,
-       this.prioritysearch, this.reportersearch, this.statussearch).subscribe((data => {
+       this.prioritysearch, this.reportersearch, this.statussearch).subscribe((data) => {
         this.Bugs = data;
-      }));
+      });
   }
 
   refresh() {
     this.resetSearch();
-    this.arrow = document.getElementById(this.previousSorted) as HTMLElement;
-    this.arrow.innerHTML = '';
-    this.previousSorted = '';
+    if (this.previousSorted) {
+      this.arrow = document.getElementById(this.previousSorted) as HTMLElement;
+      this.arrow.innerHTML = '';
+      this.previousSorted = '';
+    }
     this.page = 0;
     this.sortDirection = 'asc';
     this.story1sService.getBugs(this.previousSorted, this.sortDirection, this.page, this.titlesearch,
-      this.prioritysearch, this.reportersearch, this.statussearch).subscribe((data => {
+      this.prioritysearch, this.reportersearch, this.statussearch).subscribe((data) => {
        this.Bugs = data;
-     }));
+     });
+  }
+
+  checkValid() {
+    if (this.titlesearch || this.prioritysearch || this.reportersearch || this.statussearch) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+
+  delete(delbug: string) {
+    this.story1sService.deleteBug(delbug).subscribe( (response) => { this.ngZone.run(() =>
+      this.story1sService.getBugs(this.previousSorted, this.sortDirection, this.page, this.titlesearch,
+      this.prioritysearch, this.reportersearch, this.statussearch).subscribe((data) => {
+        this.test = data;
+        if (this.test.length === 0) {
+          this.refresh();
+        } else {
+          this.Bugs = this.test;
+        }
+      })); });
   }
 }

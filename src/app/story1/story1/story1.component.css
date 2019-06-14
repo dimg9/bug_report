@@ -20,3 +20,8 @@ svg {
   margin-top: 1em;
   cursor: pointer;
 }
+
+.pagenumber {
+  position: relative;
+  vertical-align: top;
+}

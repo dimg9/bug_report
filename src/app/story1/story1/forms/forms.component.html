@@ -64,7 +64,8 @@
                   </label>
                   <br>
                   <select #priority="ngModel" name="priority" [(ngModel)]="model.priority"
-                    (change)="PriorityValidation($event)" required>
+                    (change)="PriorityValidation($event)" required class="custom-select"
+                    id="inputGroupSelect01">
                     <option [ngValue]="null">Select</option>
                     <option *ngFor="let priority of ListofPriorities" [value]="priority">
                       {{priority | prioritypipe}}
@@ -83,7 +84,8 @@
                   </label>
                   <br>
                   <select #reporter="ngModel" name="reporter" [(ngModel)]="model.reporter"
-                    (change)="ReporterValidation($event)" required>
+                    (change)="ReporterValidation($event)" required class="custom-select"
+                    id="inputGroupSelect01">
                     <option [ngValue]="null">Select</option>
                     <option *ngFor="let reporter of ListofReporters">
                       {{reporter}}
@@ -102,7 +104,7 @@
                   </label>
                   <br>
                   <select #status="ngModel" name="status" [(ngModel)]="model.status" (change)="StatusValidation($event)"
-                    required>
+                    required class="custom-select" id="inputGroupSelect01">
                     <option [ngValue]="null">Select</option>
                     <option *ngFor="let status of ListofStatus">
                       {{status}}
@@ -124,11 +126,19 @@
   <br>
   <hr>
   <br>
-  <ul *ngFor="let item of com">
-    <li *ngIf="item.reporter">
-      {{item.reporter}}: {{item.description}}
-    </li>
-  </ul>
+  <div class="container" *ngIf="model.comments.length">
+    <h2>Comments</h2>
+    <br>
+    <table class="table table-striped table-dark table-hover table-bordered">
+      <tbody>
+        <tr *ngFor="let item of model.comments.slice().reverse()">
+          <td *ngIf="item.reporter" width="20%">Name:<br><span class="comtable">{{item.reporter | shortentitle}}</span>
+          </td>
+          <td *ngIf="item.reporter" width="80%">Comment:<br><span class="comtable">{{item.description}}</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
   <div *ngIf="edit">
     <app-comments (output)="handle($event)"></app-comments>
   </div>

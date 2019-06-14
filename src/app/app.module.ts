@@ -4,15 +4,15 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS  } from '@angular/common/http';
 import { Story1Module } from './story1/story1.module';
 import { RouterModule } from '@angular/router';
 import { routes } from './story1/routes';
-
+import { CustomHttpInterceptor } from './custom-http.interceptor';
 
 @NgModule({
   declarations: [
-    AppComponent,
+    AppComponent
   ],
   imports: [
     BrowserModule,
@@ -22,7 +22,13 @@ import { routes } from './story1/routes';
     RouterModule.forRoot(routes, { useHash: true })
 
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: CustomHttpInterceptor,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

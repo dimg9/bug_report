@@ -6,12 +6,15 @@ import { FormsComponent } from './story1/forms/forms.component';
 import { FormsModule } from '@angular/forms';
 import { CommentsComponent } from './story1/comments/comments.component';
 import { PriorityPipe } from './priority.pipe';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { ShortentitlePipe } from './shortentitle.pipe';
 
 @NgModule({
-  declarations: [Story1Component, PageTitleComponent, FormsComponent, CommentsComponent, PriorityPipe],
+  declarations: [Story1Component, PageTitleComponent, FormsComponent, CommentsComponent, PriorityPipe, ShortentitlePipe],
   imports: [
     CommonModule,
-    FormsModule
+    FormsModule,
+    NgbModule
   ],
   exports: [
     Story1Component,

@@ -20,9 +20,7 @@ model: BugTable = {
   status: null,
   createdAt: '',
   updatedAt: '',
-  comments: [{id: '',
-              reporter: '',
-              description: ''}]
+  comments: []
 };
 
   com: Comm[];

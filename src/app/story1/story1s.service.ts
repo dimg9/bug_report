@@ -57,7 +57,11 @@ export class Story1sService {
     return this.http.put<BugTable[]>(`${this.endpoint}/${id}`, editedbug);
   }
 
+  deleteBug(deleteid: string): Observable<void> {
+    return this.http.delete<void>(this.endpoint + '/' + deleteid);
+  }
 }
+
 
 
 
