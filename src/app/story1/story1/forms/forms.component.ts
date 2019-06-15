@@ -3,6 +3,7 @@ import { NgForm } from '@angular/forms';
 import { Story1sService } from '../../story1s.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { BugTable, Comm } from '../../model1.model';
+import { fakeAsync } from '@angular/core/testing';
 
 @Component({
   selector: 'app-forms',
@@ -15,7 +16,7 @@ export class FormsComponent implements OnInit {
     id: '',
     title: '',
     description: '',
-    priority: 0,
+    priority: null,
     reporter: '',
     status: '',
     createdAt: '',
@@ -25,31 +26,37 @@ export class FormsComponent implements OnInit {
 
   com: Comm[];
 
+  NumberPriority = '';
   PriorityIsValid: boolean;
   ReporterIsValid: boolean;
   StatusIsValid: boolean;
 
-  ListofPriorities = [1, 2, 3];
+
+  ListofPriorities = ['1', '2', '3'];
+  ListofPriorities2 = [1, 2, 3];
   ListofReporters = ['QA', 'PO', 'DEV'];
   ListofStatus = ['Ready for test', 'Done', 'Rejected'];
   edit: string;
 
   constructor(private story1sService: Story1sService, private router: Router, private activatedRoute: ActivatedRoute,
+    // tslint:disable-next-line: align
     private ngZone: NgZone) { }
 
 
   ngOnInit() {
+    // tslint:disable-next-line: no-string-literal
     this.edit = this.activatedRoute.snapshot.params['bugid'];
     if (!!this.edit) {
       this.story1sService.getBugbyId(this.edit).subscribe((data) => {
         this.model = data;
         this.com = this.model.comments;
+
       });
     }
   }
 
   PriorityValidation(event) {
-    this.PriorityIsValid = !(this.model.priority === 0);
+    this.PriorityIsValid = !(this.NumberPriority === '');
   }
 
   ReporterValidation(event) {
@@ -62,8 +69,17 @@ export class FormsComponent implements OnInit {
 
 
 
+
+
   formSubmit(form: NgForm) {
     if (!form.valid) { return; }
+    if (this.NumberPriority === '1') {
+      this.model.priority = 1;
+    } else if (this.NumberPriority === '2') {
+      this.model.priority = 2;
+    } else if (this.NumberPriority === '3') {
+      this.model.priority = 3;
+    }
     if (!!this.edit) {
       this.model.updatedAt = Date();
       this.story1sService.updateBug(this.edit, this.model).subscribe(
@@ -84,5 +100,7 @@ export class FormsComponent implements OnInit {
     this.router.navigate([route]);
   }
 }
+
+
 
 

@@ -8,9 +8,12 @@ import { CommentsComponent } from './story1/comments/comments.component';
 import { PriorityPipe } from './priority.pipe';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ShortentitlePipe } from './shortentitle.pipe';
+import { PriorityNumberPipe } from './priority-number.pipe';
+import { ReporterUppercasePipe } from './reporter-uppercase.pipe';
 
 @NgModule({
-  declarations: [Story1Component, PageTitleComponent, FormsComponent, CommentsComponent, PriorityPipe, ShortentitlePipe],
+  declarations: [Story1Component, PageTitleComponent, FormsComponent, CommentsComponent, PriorityPipe,
+    ShortentitlePipe, PriorityNumberPipe, ReporterUppercasePipe],
   imports: [
     CommonModule,
     FormsModule,

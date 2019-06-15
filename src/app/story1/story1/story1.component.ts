@@ -31,9 +31,10 @@ export class Story1Component implements OnInit {
   ngOnInit() {
 
     this.story1sService.getBugs(this.previousSorted, this.sortDirection, this.page, this.titlesearch, this.prioritysearch,
-       this.reportersearch, this.statussearch).subscribe((data) => {
-      this.Bugs = data;
-    });
+      this.reportersearch, this.statussearch).subscribe((data) => {
+        this.Bugs = data;
+
+      });
   }
 
   sort(sortBy) {
@@ -52,8 +53,8 @@ export class Story1Component implements OnInit {
     }
     this.story1sService.getBugs(sortBy, this.sortDirection, this.page, this.titlesearch, this.prioritysearch,
       this.reportersearch, this.statussearch).subscribe((data) => {
-      this.Bugs = data;
-    });
+        this.Bugs = data;
+      });
   }
 
   goToRoute(route: string) {
@@ -69,14 +70,14 @@ export class Story1Component implements OnInit {
       this.page = this.page - 1;
       this.story1sService.getBugs(this.previousSorted, this.sortDirection, this.page, this.titlesearch, this.prioritysearch,
         this.reportersearch, this.statussearch).subscribe((data) => {
-        this.Bugs = data;
-      });
+          this.Bugs = data;
+        });
     } else if (keyarrow === 'right') {
       this.page = this.page + 1;
       this.story1sService.getBugs(this.previousSorted, this.sortDirection, this.page, this.titlesearch, this.prioritysearch,
         this.reportersearch, this.statussearch).subscribe((data) => {
-        this.Bugs = data;
-      });
+          this.Bugs = data;
+        });
     }
 
   }
@@ -85,8 +86,8 @@ export class Story1Component implements OnInit {
     this.page = 0;
     this.story1sService.getBugs(this.previousSorted, this.sortDirection, this.page, this.titlesearch, this.prioritysearch,
       this.reportersearch, this.statussearch).subscribe((data) => {
-      this.Bugs = data;
-    });
+        this.Bugs = data;
+      });
   }
 
   resetSearch() {
@@ -100,7 +101,7 @@ export class Story1Component implements OnInit {
     this.previousSorted = '';
     this.page = 0;
     this.story1sService.getBugs(this.previousSorted, this.sortDirection, this.page, this.titlesearch,
-       this.prioritysearch, this.reportersearch, this.statussearch).subscribe((data) => {
+      this.prioritysearch, this.reportersearch, this.statussearch).subscribe((data) => {
         this.Bugs = data;
       });
   }
@@ -116,8 +117,8 @@ export class Story1Component implements OnInit {
     this.sortDirection = 'asc';
     this.story1sService.getBugs(this.previousSorted, this.sortDirection, this.page, this.titlesearch,
       this.prioritysearch, this.reportersearch, this.statussearch).subscribe((data) => {
-       this.Bugs = data;
-     });
+        this.Bugs = data;
+      });
   }
 
   checkValid() {
@@ -129,15 +130,17 @@ export class Story1Component implements OnInit {
   }
 
   delete(delbug: string) {
-    this.story1sService.deleteBug(delbug).subscribe( (response) => { this.ngZone.run(() =>
-      this.story1sService.getBugs(this.previousSorted, this.sortDirection, this.page, this.titlesearch,
-      this.prioritysearch, this.reportersearch, this.statussearch).subscribe((data) => {
-        this.test = data;
-        if (this.test.length === 0) {
-          this.refresh();
-        } else {
-          this.Bugs = this.test;
-        }
-      })); });
+    this.story1sService.deleteBug(delbug).subscribe((response) => {
+      this.ngZone.run(() =>
+        this.story1sService.getBugs(this.previousSorted, this.sortDirection, this.page, this.titlesearch,
+          this.prioritysearch, this.reportersearch, this.statussearch).subscribe((data) => {
+            this.test = data;
+            if (this.test.length === 0) {
+              this.refresh();
+            } else {
+              this.Bugs = this.test;
+            }
+          }));
+    });
   }
 }

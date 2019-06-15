@@ -23,7 +23,7 @@
                   id="inputGroupSelect01">
                   <option [ngValue]="null">Search By Priority</option>
                   <option *ngFor="let priority of ListofPriorities" [value]="priority">
-                    {{priority | prioritypipe}}
+                    {{priority | priorityNumber}}
                   </option>
                 </select>
               </div>
@@ -92,41 +92,57 @@
       <tr *ngFor="let bug of Bugs; let idx=index;">
         <th scope="row">{{idx+1}}</th>
         <td>{{bug.title | shortentitle}}</td>
-        <td>{{bug.priority | prioritypipe}}</td>
-        <td>{{bug.reporter}}</td>
+        <td>{{bug.priority | priorityNumber}}</td>
+        <td>{{bug.reporter | reporterUppercase}}</td>
         <td>{{bug.createdAt | date:"full"}}</td>
         <td>{{bug.status}}</td>
         <!-- <button (click)="goToEdit(bug)" class="btn btn-link text-white">Edit</button> -->
-        <svg xmlns="http://www.w3.org/2000/svg" (click)="goToEdit(bug)" x="0px" y="0px" width="24" height="24"
-          viewBox="0 0 192 192" style=" fill:#000000;">
-          <g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt"
-            stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none"
-            font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal">
-            <path d="M0,192v-192h192v192z" fill="none"></path>
-            <g fill="#2ecc71">
-              <path
-                d="M147.3125,16c-2.04699,0 -4.09625,0.77975 -5.65625,2.34375l-13.65625,13.65625l32,32l13.65625,-13.65625c3.128,-3.128 3.128,-8.1925 0,-11.3125l-20.6875,-20.6875c-1.564,-1.564 -3.60926,-2.34375 -5.65626,-2.34375zM116,44l-92,92v32h32l92,-92z">
-              </path>
+        <td><svg xmlns="http://www.w3.org/2000/svg" (click)="goToEdit(bug)" x="0px" y="0px" width="24" height="24"
+            viewBox="0 0 192 192" style=" fill:#000000;">
+            <g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt"
+              stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0"
+              font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal">
+              <path d="M0,192v-192h192v192z" fill="none"></path>
+              <g fill="#2ecc71">
+                <path
+                  d="M147.3125,16c-2.04699,0 -4.09625,0.77975 -5.65625,2.34375l-13.65625,13.65625l32,32l13.65625,-13.65625c3.128,-3.128 3.128,-8.1925 0,-11.3125l-20.6875,-20.6875c-1.564,-1.564 -3.60926,-2.34375 -5.65626,-2.34375zM116,44l-92,92v32h32l92,-92z">
+                </path>
+              </g>
             </g>
-          </g>
-        </svg>
+          </svg></td>
 
-        <td><button class="pagebuttons" style="color: #ff1a1a" (click)="delete(bug.id)"><i
-              class="material-icons">delete</i></button></td>
+        <td><svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="25" height="25" viewBox="0 0 172 172"
+            (click)="delete(bug.id)" style=" fill:#000000;">
+            <g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt"
+              stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0"
+              font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal">
+              <path d="M0,172v-172h172v172z" fill="none"></path>
+              <g fill="#e74c3c">
+                <g id="surface1">
+                  <path
+                    d="M72.24,0c-5.65719,0 -10.32,4.66281 -10.32,10.32v3.44h-28.595c-4.24625,0 -7.955,2.91594 -9.3525,6.88c-7.43094,0.24188 -13.42406,6.35594 -13.6525,13.975c0.12094,1.80063 1.6125,3.225 3.44,3.225h144.48c1.8275,0 3.3325,-1.42437 3.44,-3.225c-0.22844,-7.61906 -6.22156,-13.73312 -13.6525,-13.975c-1.3975,-3.96406 -5.10625,-6.88 -9.3525,-6.88h-28.595v-3.44c0,-5.65719 -4.66281,-10.32 -10.32,-10.32zM72.24,6.88h27.52c1.90813,0 3.44,1.53188 3.44,3.44v3.44h-34.4v-3.44c0,-1.90812 1.53188,-3.44 3.44,-3.44zM18.1675,44.72l16.985,116.1c0.92719,6.49031 6.38281,11.18 13.0075,11.18h75.68c6.36938,0 11.55625,-4.39406 13.0075,-11.18l16.985,-116.1zM42.2475,56.115c1.88125,-0.22844 3.61469,1.02125 3.87,2.9025l11.2875,85.6775c0.24188,1.88125 -1.02125,3.62813 -2.9025,3.87c-0.14781,0.02688 -0.38969,0 -0.5375,0c-1.69312,0 -3.10406,-1.16906 -3.3325,-2.9025l-11.395,-85.6775c-0.25531,-1.88125 1.12875,-3.61469 3.01,-3.87zM71.38,56.115c1.81406,-0.09406 3.57438,1.31688 3.655,3.225l3.7625,85.6775c0.08063,1.89469 -1.43781,3.46688 -3.3325,3.5475c-0.05375,0 -0.05375,0 -0.1075,0c-1.8275,0 -3.35937,-1.38406 -3.44,-3.225l-3.7625,-85.6775c-0.08062,-1.89469 1.33031,-3.46687 3.225,-3.5475zM100.62,56.115c1.89469,0.08063 3.30563,1.65281 3.225,3.5475l-3.7625,85.6775c-0.08062,1.84094 -1.6125,3.225 -3.44,3.225c-0.05375,0 -0.05375,0 -0.1075,0c-1.89469,-0.08062 -3.41312,-1.65281 -3.3325,-3.5475l3.7625,-85.6775c0.08063,-1.89469 1.78719,-3.26531 3.655,-3.225zM129.7525,56.115c1.88125,0.24188 3.26531,1.98875 3.01,3.87l-11.395,85.6775c-0.22844,1.73344 -1.63937,2.9025 -3.3325,2.9025c-0.14781,0 -0.37625,0.02688 -0.5375,0c-1.88125,-0.24187 -3.15781,-1.98875 -2.9025,-3.87l11.2875,-85.6775c0.24188,-1.88125 1.97531,-3.14437 3.87,-2.9025z">
+                  </path>
+                </g>
+              </g>
+            </g>
+          </svg></td>
+
+        <!-- <td><button class="pagebuttons" style="color: #ff1a1a" (click)="delete(bug.id)"><i
+              class="material-icons">delete</i></button></td>-->
     </tbody>
   </table>
 
 
   <div class="container">
     <div class="row">
-      <div class="col-lg-2">
+      <div class="col-lg-2 bg-dark">
         <span class="pagenumber">Go to First Page</span>
         <button class="pagebuttons" (click)="goToFirstPage()" [disabled]="page === 0">
           <i class="material-icons">first_page</i>
         </button>
       </div>
       <div class="col-lg-3"></div>
-      <div class="col-lg-2">
+      <div class="col-lg-2 bg-dark">
         <button class="pagebuttons" (click)="goToPages('left')" [disabled]="page === 0"><i
             class="material-icons">chevron_left</i></button>
         <span class="pagenumber">Page {{page + 1}}</span>
@@ -135,7 +151,6 @@
       <div class="col-lg-5"></div>
     </div>
   </div>
-
-
-
 </div>
+
+<br>

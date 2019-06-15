@@ -8,7 +8,7 @@
 
 <br><br>
 
-<form #form="ngForm" class="form" [class.was-validated]="form.dirty && form.invalid" autocomplete="off"
+<form #form="ngForm" class="form" [class.was-validated]="form.dirty && form.invalid " autocomplete="off"
   (submit)="formSubmit(form)">
 
 
@@ -57,7 +57,7 @@
           <div class="container">
             <div class="row">
 
-              <div class="col-lg-4">
+              <div *ngIf="edit; else noEdit" class="col-lg-4">
                 <div class="form-priority" [ngClass]="{'has-error': !PriorityIsValid && priority.dirty}">
                   <label class="form-control-label">
                     <h3>Priority</h3>
@@ -65,7 +65,27 @@
                   <br>
                   <select #priority="ngModel" name="priority" [(ngModel)]="model.priority"
                     (change)="PriorityValidation($event)" required class="custom-select" id="inputGroupSelect01">
-                    <option value=0 disabled>Select</option>
+                    <option value="null" disabled>Select</option>
+                    <option *ngFor="let priority of ListofPriorities2" [value]="priority">
+                      {{priority | priorityNumber}}
+                    </option>
+                  </select>
+                  <div *ngIf="!PriorityIsValid && priority.dirty" style="color:red">
+                    Field is required priority
+                  </div>
+                </div>
+
+                <br>
+              </div>
+              <ng-template #noEdit>
+                <div class="form-priority" [ngClass]="{'has-error': !PriorityIsValid && priority.dirty}">
+                  <label class="form-control-label">
+                    <h3>Priority</h3>
+                  </label>
+                  <br>
+                  <select #priority="ngModel" name="numberpriority" [(ngModel)]="NumberPriority"
+                    (change)="PriorityValidation($event)" required class="custom-select" id="inputGroupSelect01">
+                    <option value='' disabled>Select</option>
                     <option *ngFor="let priority of ListofPriorities" [value]="priority">
                       {{priority | prioritypipe}}
                     </option>
@@ -74,7 +94,9 @@
                     Field is required priority
                   </div>
                 </div>
-              </div>
+
+                <br>
+              </ng-template>
 
               <div class="col-lg-4">
                 <div class="form-reporter" [ngClass]="{'has-error': !ReporterIsValid && reporter.dirty}">
@@ -93,6 +115,7 @@
                     Field is required reporter
                   </div>
                 </div>
+                <br>
               </div>
 
               <div class="col-lg-4">
@@ -111,7 +134,31 @@
                   <div *ngIf="!StatusIsValid && status.dirty" style="color:red">
                     Field is required status
                   </div>
+                  <br>
                 </div>
+
+              </div>
+
+              <div class="row">
+
+                <h2 class="container">Comments</h2>
+                <br>
+                <div class="container" *ngIf="!model.comments.length || model.comments.reporter === ' '">There are no
+                  comments</div>
+                <div class=" container" *ngIf="model.comments.length">
+                  <table class="table table-striped table-dark table-hover table-bordered">
+                    <tbody>
+                      <tr *ngFor="let item of model.comments.slice().reverse()">
+                        <td *ngIf="item.reporter" width="20%">Name:<br><span
+                            class="comtable">{{item.reporter | shortentitle}}</span>
+                        </td>
+                        <td *ngIf="item.reporter" width="100%">Comment:<br><span
+                            class="comtable">{{item.description}}</span></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+
               </div>
 
             </div>
@@ -124,20 +171,14 @@
   <br>
   <hr>
   <br>
-  <div class="container" *ngIf="model.comments.length">
-    <h2>Comments</h2>
-    <br>
-    <table class="table table-striped table-dark table-hover table-bordered">
-      <tbody>
-        <tr *ngFor="let item of model.comments.slice().reverse()">
-          <td *ngIf="item.reporter" width="20%">Name:<br><span class="comtable">{{item.reporter | shortentitle}}</span>
-          </td>
-          <td *ngIf="item.reporter" width="80%">Comment:<br><span class="comtable">{{item.description}}</span></td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
   <div *ngIf="edit">
     <app-comments (output)="handle($event)"></app-comments>
+    <br>
+    <div class="container">
+      <button class="btn btn-primary" [disabled]="!form.valid">
+        Update Bug
+      </button>
+    </div>
   </div>
+
 </form>
