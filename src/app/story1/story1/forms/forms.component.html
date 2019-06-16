@@ -114,7 +114,7 @@
                     (change)="ReporterValidation($event)" required class="custom-select" id="inputGroupSelect01">
                     <option value='' disabled>Select</option>
                     <option *ngFor="let reporter of ListofReporters">
-                      {{reporter}}
+                      {{reporter | uppercase}}
                     </option>
                   </select>
                   <div *ngIf="!ReporterIsValid && reporter.dirty" style="color:red">

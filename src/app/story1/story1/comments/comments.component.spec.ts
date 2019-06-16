@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CommentsComponent } from './comments.component';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 describe('CommentsComponent', () => {
   let component: CommentsComponent;
@@ -8,7 +9,8 @@ describe('CommentsComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CommentsComponent ]
+      declarations: [ CommentsComponent ],
+      imports: [ ReactiveFormsModule, FormsModule ]
     })
     .compileComponents();
   }));

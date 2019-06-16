@@ -1,9 +1,9 @@
-import { Component, OnInit, NgZone } from '@angular/core';
+import { Component, OnInit, NgZone, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Story1sService } from '../../story1s.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { BugTable, Comm } from '../../model1.model';
-import { fakeAsync } from '@angular/core/testing';
+
 
 @Component({
   selector: 'app-forms',
@@ -11,6 +11,7 @@ import { fakeAsync } from '@angular/core/testing';
   styleUrls: ['./forms.component.css']
 })
 export class FormsComponent implements OnInit {
+  @ViewChild('form') frm: NgForm;
 
   model: BugTable = {
     id: '',
@@ -45,12 +46,11 @@ export class FormsComponent implements OnInit {
 
   ngOnInit() {
     // tslint:disable-next-line: no-string-literal
-    this.edit = this.activatedRoute.snapshot.params['bugid'];
+    this.edit = this.activatedRoute.snapshot.paramMap.get('bugid');
     if (!!this.edit) {
       this.story1sService.getBugbyId(this.edit).subscribe((data) => {
         this.model = data;
         this.com = this.model.comments;
-
       });
     }
   }
