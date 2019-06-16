@@ -41,17 +41,9 @@
 
           <br><br>
 
-          <button type="button" class="btn btn-success" (click)="isCollapsed = !isCollapsed"
-            [attr.aria-expanded]="!isCollapsed" aria-controls="collapseExample">
-            add comment
-          </button>
-          <div id="collapseExample" [ngbCollapse]="!isCollapsed">
-            <div class="card">
-              <div class="card-body" style="color: black">
-                You can collapse this card by clicking Toggle
-              </div>
-            </div>
-          </div>
+          <a *ngIf="edit" class="btn btn-success" href = "#cm">
+            Add a comment
+          </a>
           <br>
           <br>
 
@@ -78,7 +70,7 @@
                   </label>
                   <br>
                   <select #priority="ngModel" name="priority" [(ngModel)]="model.priority"
-                    (change)="PriorityValidation($event)" required class="custom-select" id="inputGroupSelect01">
+                    (change)="PriorityValidation2($event)" required class="custom-select" id="inputGroupSelect01">
                     <option value="null" disabled>Select</option>
                     <option *ngFor="let priority of ListofPriorities2" [value]="priority">
                       {{priority | priorityNumber}}
@@ -92,7 +84,7 @@
                 <br>
               </div>
               <ng-template #noEdit>
-                <div class="form-priority" [ngClass]="{'has-error': !PriorityIsValid && priority.dirty}">
+                <div class="form-priority col-lg-4" [ngClass]="{'has-error': !PriorityIsValid && priority.dirty}">
                   <label class="form-control-label">
                     <h3>Priority</h3>
                   </label>
@@ -152,30 +144,6 @@
                 </div>
 
               </div>
-
-
-
-              <div class="row">
-
-                <h2 class="container">Comments</h2>
-                <br>
-                <div class="container" *ngIf="!model.comments.length || model.comments.reporter === ' '">There are no
-                  comments</div>
-                <div class=" container" *ngIf="model.comments.length">
-                  <table class="table table-striped table-dark table-hover table-bordered">
-                    <tbody>
-                      <tr *ngFor="let item of model.comments.slice().reverse()">
-                        <td *ngIf="item.reporter" width="20%">Name:<br><span
-                            class="comtable">{{item.reporter | shortentitle}}</span>
-                        </td>
-                        <td *ngIf="item.reporter" width="100%">Comment:<br><span
-                            class="comtable">{{item.description}}</span></td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-
-              </div>
             </div>
           </div>
 
@@ -183,17 +151,34 @@
       </div>
     </div>
   </div>
+  <br><hr>
+  <h2 class="container">Comments</h2>
+  <br>
+  <div class="container" *ngIf="!model.comments.length">There are no
+    comments</div>
+  <div class=" container" *ngIf="model.comments.length">
+    <table class="table table-striped table-dark table-hover table-bordered">
+      <tbody>
+        <tr *ngFor="let item of model.comments.slice().reverse()">
+          <td *ngIf="item.reporter" width="20%">Name:<br><span class="comtable">{{item.reporter | shortentitle}}</span>
+          </td>
+          <td *ngIf="item.reporter" width="100%">Comment:<br><span class="comtable">{{item.description}}</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
   <br>
   <hr>
   <br>
-  <div *ngIf="edit">
-    <app-comments (output)="handle($event)"></app-comments>
-    <br>
-    <div class="container">
-      <button class="btn btn-primary" [disabled]="!form.valid">
-        Update Bug
-      </button>
+  <div id="cm" *ngIf="edit">
+    <div class="card container bg-dark">
+      <div class="card-body">
+          <app-comments (output)="handle($event)"></app-comments>
+      </div>
     </div>
+
   </div>
 
 </form>
+<br>
+

@@ -55,6 +55,10 @@ export class FormsComponent implements OnInit {
     }
   }
 
+  PriorityValidation2(event) {
+    this.PriorityIsValid = !(this.NumberPriority === null);
+  }
+
   PriorityValidation(event) {
     this.PriorityIsValid = !(this.NumberPriority === '');
   }
@@ -94,6 +98,14 @@ export class FormsComponent implements OnInit {
 
   handle(event) {
     this.model.comments.push(event);
+    if (this.NumberPriority === '1') {
+      this.model.priority = 1;
+    } else if (this.NumberPriority === '2') {
+      this.model.priority = 2;
+    } else if (this.NumberPriority === '3') {
+      this.model.priority = 3;
+    }
+    this.story1sService.updateBug(this.edit, this.model).subscribe();
   }
 
   goToRoute(route: string) {
