@@ -41,6 +41,20 @@
 
           <br><br>
 
+          <button type="button" class="btn btn-success" (click)="isCollapsed = !isCollapsed"
+            [attr.aria-expanded]="!isCollapsed" aria-controls="collapseExample">
+            add comment
+          </button>
+          <div id="collapseExample" [ngbCollapse]="!isCollapsed">
+            <div class="card">
+              <div class="card-body" style="color: black">
+                You can collapse this card by clicking Toggle
+              </div>
+            </div>
+          </div>
+          <br>
+          <br>
+
           <button class="btn btn-primary" [disabled]="!form.valid">
             <span *ngIf="!!edit; else create">
               Update Bug
@@ -139,6 +153,8 @@
 
               </div>
 
+
+
               <div class="row">
 
                 <h2 class="container">Comments</h2>
@@ -160,7 +176,6 @@
                 </div>
 
               </div>
-
             </div>
           </div>
 
